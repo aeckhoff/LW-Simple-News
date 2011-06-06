@@ -1,0 +1,297 @@
+<!-- lw:if interncss -->
+<!-- lw:if editorcss -->
+<style type="text/css" media="screen">
+.spn_add {
+	background-color: #B3AFE4;
+	border: 1px solid;
+	padding: 3px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.spn_add a {
+	color: #5B5B5B;
+	text-decoration: none;
+}
+
+.spn_add a:hover {
+	color: #000EFF;
+	text-decoration: none;
+}
+
+.spn_date {
+	color: #890000;
+	font-size: 10px;
+	font-weight: bold;
+	padding: 5px;
+}
+
+.spn_text {
+	padding: 5px;
+}
+
+.spn_newslink {
+	padding: 5px;
+}
+
+.spn {
+	font-family: Arial, sans-serif;
+}
+
+.spn_newsitem {
+	margin-top: 15px;
+	margin-botton: 15px;
+	border: 1px solid;
+	background-color: #E5E5E5;
+}
+
+.spn_edit {
+	background-color: #5B5B5B;
+	color: #ffffff;
+	padding: 5px;
+}
+
+.spn_edit a {
+	color: #CAFFCC;
+	text-decoration: none;
+}
+
+.spn_edit a:hover {
+	color: #00FF0E;
+	text-decoration: none;
+}
+
+.delete a {
+	color: #FFB0B3;
+	text-decoration: none;
+}
+
+.delete a:hover {
+	color: #FF0300;
+	text-decoration: none;
+}
+
+.spn_archive {
+	margin-top: 15px;
+	margin-botton: 15px;
+}
+</style>
+<!-- lw:endif editorcss -->
+<!-- lw:if readercss -->
+<style type="text/css" media="screen">
+.spn_add {
+	background-color: #B3AFE4;
+	border: 1px solid;
+	padding: 3px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.spn_date {
+	color: #890000;
+	font-size: 10px;
+	font-weight: bold;
+}
+
+.spn {
+	font-family: Arial, sans-serif;
+}
+
+.spn_newsitem {
+	margin-top: 15px;
+	margin-botton: 15px;
+}
+
+.spn_archive {
+	margin-top: 15px;
+	margin-botton: 15px;
+}
+</style>
+<!-- lw:endif readercss -->
+<style type="text/css" media="screen">
+.spn_month {
+	margin-top: 15px;
+	margin-bottom: 15px;
+	background-color: #CFCFCF;
+	color: #000000;
+	padding: 5px;
+}
+</style>
+<!-- lw:endif interncss -->
+<style type="text/css" media="screen">
+.spn_textarea {
+	border: 1px solid #9a9a9a;
+	width: 450px;
+	height: 150px;
+}
+
+.spn_textbox {
+	border: 1px solid #9a9a9a;
+	width: 300px;
+}
+
+.spn_newsitem {
+	padding-top: 3px;
+	padding-bottom: 7px;
+}
+
+.spn_info {
+	padding-top: 5px;
+	padding-bottom: 10px;
+}
+
+.spn_label {
+	width: 150px;
+	float: left;
+}
+
+.spn_edititem {
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+.spn_date {
+	color: #000;
+	font-weight: bold;
+}
+
+.spn_edit_header {
+	font-size: 14px;
+	font-weight: bold;
+	color: #0059A2;
+	margin-top: 0px;
+	margin-bottom: 5px;
+}
+
+.spn_red a {
+	color: #cc0000;
+}
+
+.spn_red a:hover {
+	color: #cc0000;
+}
+
+.spn_red a:visited {
+	color: #cc0000;
+}
+</style>
+<div class="spn">
+	<!-- lw:if editor -->
+	<!-- lw:if current -->
+	<div class="spn_add spn_red">
+		<a class="spn_red" href="<!-- lw:var addurl -->">hinzuf&uuml;gen</a>
+	</div>
+	<!-- lw:endif current -->
+	<!-- lw:endif editor -->
+	<!-- lw:blockstart listitem -->
+	<!-- lw:if is_event -->
+	<div class="spn_newsitem">
+		<div class="spe_newsentry">
+			<div class="spe_date">
+				<!-- lw:var archivedate --><!-- lw:if has_todate --> - <!-- lw:var todate --><!-- lw:endif has_todate -->, <!-- lw:var eventtime -->
+			</div>
+			<div class="spe_title">
+				<b> <!-- lw:var title --> </b>
+			</div>
+			<!-- lw:if has_contact -->
+			<!-- lw:if has_location -->
+			<div class="spe_addinfo">
+				<!-- lw:var contact -->, <!-- lw:var location -->
+			</div>
+			<!-- lw:endif has_location -->
+			<!-- lw:ifnot has_location -->
+			<div class="spe_addinfo">
+				<!-- lw:var contact -->
+			</div>
+			<!-- lw:endifnot has_location -->
+			<!-- lw:endif has_contact -->
+			<!-- lw:ifnot has_contact -->
+			<!-- lw:if has_location -->
+			<div class="spe_addinfo">
+				<!-- lw:var location -->
+			</div>
+			<!-- lw:endif has_location -->
+			<!-- lw:endifnot has_contact -->
+			<!-- lw:if has_text -->
+			<div class="spe_text">
+				<!-- lw:var text -->
+			</div>
+			<!-- lw:endif has_text -->
+			<!-- lw:var files -->
+			<!-- lw:if haslink -->
+			<span class="spn_newslink"><a href="<!-- lw:var newslink -->" target="_blank">[mehr]</a> </span>
+			<!-- lw:endif haslink -->
+			<!-- lw:if haslinkint -->
+			<span class="spn_newslinkint"><a href="<!-- lw:var newslinkint -->">[mehr]</a></span>
+			<!-- lw:endif haslinkint -->
+		</div>
+		<!-- lw:if editor -->
+		<div class="spn_edit spn_red">
+			<br /> <a class="spn_red" href="<!-- lw:var editurl -->">bearbeiten</a>
+			<!-- lw:if admindelete -->
+			<span class="delete"> |&nbsp;<a class="spn_red"
+				href="javascript:if(confirm('Soll diese Mitteilung wirklich gel&ouml;scht werden?')){ document.location.href='<!-- lw:var deleteurl -->';}"
+			>l&ouml;schen</a> </span>
+			<!-- lw:endif admindelete -->
+			<!-- lw:if notpublished -->
+			&nbsp;Dieser Eintrag wurde noch nicht ver&ouml;ffentlicht.<br />
+			<!-- lw:endif notpublished -->
+		</div>
+		<!-- lw:endif editor -->
+	</div>
+	<!-- lw:endif is_event -->
+	
+	<!-- lw:ifnot is_event -->
+	<div class="spn_newsitem">
+		<div class="spn_text">
+			<!-- lw:if hastitle -->
+			<!-- lw:var firstdate -->
+			<br /> <b> <!-- lw:var title --> </b><br />
+			<!-- lw:endif hastitle -->
+			<!-- lw:ifnot hastitle -->
+			<b> <!-- lw:var firstdate --> </b><br />
+			<!-- lw:endifnot hastitle -->
+			<!-- lw:var newstext -->
+			<!-- lw:var files -->
+			<!-- lw:if haslink -->
+			<span class="spn_newslink"><a href="<!-- lw:var newslink -->"
+				target="_blank"
+			>[mehr]</a> </span>
+			<!-- lw:endif haslink -->
+			<!-- lw:if haslinkint -->
+			<span class="spn_newslinkint"><a
+				href="<!-- lw:var newslinkint -->"
+			>[mehr]</a> </span>
+			<!-- lw:endif haslinkint -->
+		</div>
+		<!-- lw:if editor -->
+		<div class="spn_edit spn_red">
+			<br /> <a class="spn_red" href="<!-- lw:var editurl -->">bearbeiten</a>
+			<!-- lw:if admindelete -->
+			<span class="delete"> |&nbsp;<a class="spn_red"
+				href="javascript:if(confirm('Soll diese Mitteilung wirklich gel&ouml;scht werden?')){ document.location.href='<!-- lw:var deleteurl -->';}"
+			>l&ouml;schen</a> </span>
+			<!-- lw:endif admindelete -->
+			<!-- lw:if notpublished -->
+			&nbsp;Dieser Eintrag wurde noch nicht ver&ouml;ffentlicht.<br />
+			<!-- lw:endif notpublished -->
+			<!-- lw:if notyetpublished -->
+			&nbsp;Diese News ist ver&ouml;ffentlicht, aber das Datum liegt noch
+			in der Zukunft.<br />
+			<!-- lw:endif notyetpublished -->
+		</div>
+		<!-- lw:endif editor -->
+	</div>
+	<!-- lw:endifnot is_event -->
+	<!-- lw:blockend listitem -->
+	<!-- lw:if current -->
+	<div class="spn_archive">
+		<br /> <a href="<!-- lw:var archiveurl -->">&gt; zum Archiv</a>
+	</div>
+	<!-- lw:endif current -->
+	<!-- lw:if archive -->
+	<div class="spn_archive">
+		<br /> <a href="<!-- lw:var backurl -->">&gt; zur &Uuml;bersicht</a>
+	</div>
+	<!-- lw:endif archive -->
+</div>

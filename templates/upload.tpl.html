@@ -1,0 +1,41 @@
+<!-- lw:if error -->
+<div id="spn_file_upload_error">
+	Beim Hochladen der Dateien sind Fehler aufgetreten.<br/>
+	<!-- lw:var uploaderror -->
+</div>
+<!-- lw:endif error -->
+
+<!-- lw:blockstart files -->
+
+<!-- lw:if showupload -->
+
+
+<div class="spn_edititem">
+	<div class="spn_label">
+	<label for="simple_news_fileupload" class="spn_form">Datei:</label>
+	</div>
+	<div class="spn_input">
+	<input class="spn_textbox" type="file" name="simple_news_fileupload[]">		
+	</div>
+</div>
+<!-- lw:endif showupload -->
+
+<!-- lw:if showlinkanddelete -->
+
+<div class="spn_edititem">
+	<div class="spn_label">
+	<label for="simple_news_fileupload" class="spn_form">Datei:</label>
+	</div>
+	<div class="spn_input">
+	
+	<a href="<!-- lw:var url -->" target="_blank"><!-- lw:var titel --></a>&nbsp;&nbsp;
+	<input type="checkbox" name="spn_deletebox_<!-- lw:var entryindex -->" value="1" />&nbsp;diese Datei l&ouml;schen*
+	<input type="hidden" name="spn_filename_<!-- lw:var entryindex -->" value="<!-- lw:var filename -->">
+	<input type="hidden" name="spn_newsid_<!-- lw:var entryindex -->" value="<!-- lw:var newsid -->">
+	</div>
+</div>
+
+<!-- lw:endif showlinkanddelete -->
+
+<!-- lw:blockend files -->
+

@@ -1,0 +1,16 @@
+Dies ist eine automatisch generierte E-Mail des SimpleNews-Plugins.
+
+Eine Meldung wurde neu erstellt:
+
+News ID: <!-- lw:var newsid -->
+
+Link: <!-- lw:var newslink -->
+
+Redakteur: <!-- lw:var user -->
+
+(Link funktioniert nur, wenn Sie als Administrator im System eingeloggt sind.)
+
+Bis zur Freigabe wird durch das Plugin keine weitere diese News betreffende E-Mail gesendet.
+
+<!-- lw:var date -->
+
