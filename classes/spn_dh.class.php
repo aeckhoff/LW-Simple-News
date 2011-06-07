@@ -148,7 +148,7 @@ class spn_dh extends lw_object
 		$sn = $this->getFilterClause();
 		$now = date('Ymd');
 		$sql = 'SELECT * FROM '.$this->table.' WHERE '.$sn.' '
-		.'AND (archivedate < "'.$now.'") '
+		.'AND (archivedate < '.$now.') '
 		.'AND (published > 0 AND published IS NOT NULL) '
 		.'ORDER BY archivedate DESC';
 
