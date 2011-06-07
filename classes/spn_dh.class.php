@@ -51,7 +51,8 @@ class spn_dh extends lw_object
 		$this->instance = $sn_instance;
 		$this->itemtype = $itemtype;
 
-		$this->table 			= $this->conf['dbt']['simplenews'];
+		//$this->table 			= $this->conf['dbt']['simplenews'];
+		$this->table 			= $this->conf['dbt']['simplenews']."_dev";
 
 		require_once(dirname(__FILE__).'/spn_logger.class.php');
 		$this->logger = new spn_logger($this->instance);
@@ -63,14 +64,14 @@ class spn_dh extends lw_object
 
 	private function getFilterClause() {
 		if (empty($this->instance)) {
-			$sn = '(sn_instance = "" OR sn_instance IS NULL)';
+			$sn = "(sn_instance = '' OR sn_instance IS NULL)";
 		} else {
-			$sn = 'sn_instance = "'.$this->sql($this->instance).'"';
+			$sn = "sn_instance = '".$this->sql($this->instance)."'";
 		}
 		if ($this->itemtype == 'event') {
-			$sn.= ' AND itemtype="event"';
+			$sn.= " AND itemtype='event'";
 		} else {
-			$sn.= ' AND (itemtype="" OR itemtype IS NULL OR showinnews=1)';
+			$sn.= " AND (itemtype='' OR itemtype IS NULL OR showinnews=1)";
 		}
 		return $sn;
 	}
@@ -199,9 +200,9 @@ class spn_dh extends lw_object
 		$sql = 'INSERT INTO '.$this->table.' (';
 		$sql.= implode(',', array_keys($vals)).') VALUES (';
 		foreach ($vals as $curKey => $curVal) {
-			$sql.= '"'.$this->sql($curVal).'",';
+			$sql.= "'".$this->sql($curVal)."',";
 		}
-		$sql = substr($sql, 0, -1).');';
+		$sql = substr($sql, 0, -1).')';
 
 		$id = $this->db->dbinsert($sql, $this->table);
 
@@ -248,7 +249,7 @@ class spn_dh extends lw_object
 
 		$sql = 'UPDATE '.$this->table.' SET ';
 		foreach ($vals as $curKey => $curVal) {
-			$sql.= $curKey.'="'.$this->sql($curVal).'",';
+			$sql.= $curKey."='".$this->sql($curVal)."',";
 		}
 		$sql = substr($sql, 0, -1).' WHERE id='.intval($id);
 
