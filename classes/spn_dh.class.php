@@ -121,6 +121,19 @@ class spn_dh extends lw_object
 		return $result;
 	}
 
+	public function getItems($ids)
+	{
+		if (!is_array($ids)) die();
+		foreach ($ids as $val) {
+			$clean[] = intval($val);
+		}
+		$sn = $this->getFilterClause();
+		$sql = 'SELECT * FROM '.$this->table
+			.' WHERE id IN ('.implode(',', $clean).') AND '.$sn;
+		$result = $this->db->select($sql);
+		return $result;
+	}
+
 	public function isDirty($id)
 	{
 		if(!is_numeric($id)) die();

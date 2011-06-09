@@ -75,7 +75,9 @@ class spn_list extends spn_object
 		$block = $tpl->getBlock('listitem');
 		$b_out = '';
 		$today = date('Ymd');
+		$eventIds = array();
 		$file_extension = new spn_file_extension($this->instance);
+
 		foreach($items as $item)
 		{
 			$pdate = substr($item['archivedate'], 0, 8);
@@ -102,7 +104,11 @@ class spn_list extends spn_object
 					$btpl->reg($curKey, $curVal);
 				}
 
-				if ($item['itemtype'] == 'event') $btpl->setIfVar('is_event');
+				if ($item['itemtype'] == 'event') {
+					$btpl->setIfVar('is_event');
+					$btpl->reg('icalurl', $this->buildURL(array('spn_module'=>'edit','spn_command'=>'download', 'spn_id'=>$item['id'])));
+					$eventIds[] = $item['id'];
+				}
 
 				$btpl->reg('archivedate', $this->numberToDateTimeWithoutTime($item['archivedate']));
 				$btpl->reg('todate', $this->numberToDateTimeWithoutTime($item['todate']));
@@ -126,7 +132,6 @@ class spn_list extends spn_object
 					}
 					$btpl->reg('newslinkint',   $link);
 				}
-
 				if ($this->isEditor) {
 					$btpl->setIfVar('editor');
 					$btpl->reg('editurl', $this->buildURL(array('spn_module'=>'edit','spn_command'=>'edit', 'spn_id'=>$item['id'])));
@@ -160,6 +165,15 @@ class spn_list extends spn_object
 
 		}
 		$tpl->reg('archiveurl', $this->buildURL(array('spn_module'=>'list','spn_command'=>'archive', 'spn_year'=>'-1'),array('spn_id')));
+		if (!empty($eventIds)) {
+			$tpl->setIfVar('hasevents');
+			$tpl->reg('icalallurl',
+				$this->buildURL(
+					array('spn_module'=>'edit','spn_command'=>'downloadall', 'spn_ids'=>implode(',', $eventIds)),array('spn_id')
+				)
+			);
+
+		}
 
 		$this->output = $tpl->parse();
 	}

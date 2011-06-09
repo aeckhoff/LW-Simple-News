@@ -274,4 +274,44 @@ class spn_edit extends spn_object
 		$this->pageReload($this->buildURL(array('spn_module'=>'list', 'spn_command'=>'list'), array('spn_id')));
 	}
 
-}
+	public function ac_download()
+	{
+		$id = $this->fGet->getInt('spn_id');
+		$exitURL = $this->buildURL(array('spn_module'=>'list', 'spn_command'=>'list'), array('spn_id'));
+		if (empty($id)) {
+			$this->pageReload($exitURL);
+		}
+		$record = $this->dh->getItem($id);
+		if (!$record) {
+			$this->pageReload($exitURL);
+		}
+		require_once 'spn_ical.class.php';
+		$cal = new spn_ical();
+		$item = $cal->createAndAddItem();
+		$item->assignDbRow($record);
+		$cal->sendAsFile();
+		exit;
+	}
+
+	public function ac_downloadall()
+	{
+		$exitURL = $this->buildURL(array('spn_module'=>'list', 'spn_command'=>'list'), array('spn_ids'));
+		if (!$this->fGet->testRegex('spn_ids', '/^[0-9]+(,[0-9]+)*$/')) {
+			$this->pageReload($exitURL);
+		}
+		$idsRaw = $this->fGet->getRaw('spn_ids');
+		$ids = explode(',', $idsRaw);
+
+		$records = $this->dh->getItems($ids);
+		if (!$records) {
+			$this->pageReload($exitURL);
+		}
+		require_once 'spn_ical.class.php';
+		$cal = new spn_ical();
+		foreach ($records as $record) {
+			$item = $cal->createAndAddItem();
+			$item->assignDbRow($record);
+		}
+		$cal->sendAsFile();
+		exit;
+	}}
