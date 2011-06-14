@@ -189,7 +189,8 @@ cal.setTodayText("Today");
 		var reqFields = new Object();
 		reqFields["archivedate"]	= "ein Datum";
 		reqFields["newstitle"]		= "einen Titel";
-		reqFields["eventtime"]		= "eine Uhrzeit";
+		reqFields["eventtime"]		= "die Angfangszeit";
+		//reqFields["eventtotime"]	= "die Endzeit";
 		
 		var errors = "";
 		for (var field in reqFields) {
@@ -198,6 +199,18 @@ cal.setTodayText("Today");
 			  errors += "Bitte " + reqFields[field] + " eingeben!\n";
 			}
 		}
+		var timeFields = new Object();
+		timeFields["eventtime"]		= "Die Angfangszeit";
+		timeFields["eventtotime"]	= "Die Endzeit";
+		for (var field in timeFields) {
+			var val = document.getElementById(field).value;
+			if (val != "") {
+			  if (!val.match(/^[0-9]{1,2}\:[0-9]{1,2}$/i)) {
+			     errors += timeFields[field] + " hat nicht das erwartete Format (HH:mm)!\n";
+			  }
+			}
+		}
+		
 		if (errors == "") {
 			document.form.submit();
 		} else {
@@ -236,6 +249,17 @@ Neuen Event eintragen
 
 <div class="spn_edititem">
   <div class="spn_label">
+  <label for="eventtime" class="spn_form">Uhrzeit Anfang:</label>
+  </div>
+  <div class="spn_input">
+  	<input class="spn_textbox" id="eventtime" type="text" style="width:100px;" name="eventtime" value="<!-- lw:var eventtime -->">		
+  </div>
+</div>
+
+<br />
+
+<div class="spn_edititem">
+  <div class="spn_label">
   <label for="todate" class="spn_form">Datum bis:</label>
   </div>
   <div class="spn_input">
@@ -246,10 +270,10 @@ Neuen Event eintragen
 
 <div class="spn_edititem">
   <div class="spn_label">
-  <label for="eventtime" class="spn_form">Uhrzeit:</label>
+  <label for="eventtotime" class="spn_form">Uhrzeit Ende:</label>
   </div>
   <div class="spn_input">
-  	<input class="spn_textbox" id="eventtime" type="text" style="width:100px;" name="eventtime" value="<!-- lw:var eventtime -->">		
+  	<input class="spn_textbox" id="eventtotime" type="text" style="width:100px;" name="eventtotime" value="<!-- lw:var eventtotime -->">		
   </div>
 </div>
 

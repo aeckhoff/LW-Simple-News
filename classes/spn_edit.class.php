@@ -80,6 +80,7 @@ class spn_edit extends spn_object
 		$tpl->reg('todate'		, $this->numberToDate($item['todate']));
 		$tpl->reg('contact'		, $item['contact']);
 		$tpl->reg('eventtime'	, $item['eventtime']);
+		$tpl->reg('eventtotime'	, $item['eventtotime']);
 		$tpl->reg('showinnews'	, $this->checked($item['showinnews']));
 
 		if ($this->isEditor) {
@@ -177,6 +178,7 @@ class spn_edit extends spn_object
 			$data['todate']			= $this->dateToNumber($this->lwStringClean($this->fPost->getRaw('todate')));
 			$data['showinnews']		= $this->lwStringClean($this->fPost->getRaw('showinnews'));
 			$data['eventtime']		= $this->lwStringClean($this->fPost->getRaw('eventtime'));
+			$data['eventtotime']	= $this->lwStringClean($this->fPost->getRaw('eventtotime'));
 			$data['contact']		= $this->lwStringClean($this->fPost->getRaw('contact'));
 		}
 		if ($data['newslink'] == 'http://') {

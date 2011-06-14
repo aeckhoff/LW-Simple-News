@@ -132,6 +132,9 @@ class spn_list extends spn_object
 					}
 					$btpl->reg('newslinkint',   $link);
 				}
+				if (!empty($item['eventtotime'])) {
+					$btpl->setIfVar('has_eventtotime');
+				}
 				if ($this->isEditor) {
 					$btpl->setIfVar('editor');
 					$btpl->reg('editurl', $this->buildURL(array('spn_module'=>'edit','spn_command'=>'edit', 'spn_id'=>$item['id'])));

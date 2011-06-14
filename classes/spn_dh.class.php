@@ -190,7 +190,7 @@ class spn_dh extends lw_object
 	protected function getFieldKeys() {
 		$keys =  explode(',', 'newstext,newslink,newslinkint,archivedate,intern,'
 		.'openpopup,lastdate,firstdate,published,sn_instance,dirty,title,'
-		.'location,todate,eventtime,itemtype,showinnews,contact');
+		.'location,todate,eventtime,eventtotime,itemtype,showinnews,contact');
 		return $keys;
 	}
 

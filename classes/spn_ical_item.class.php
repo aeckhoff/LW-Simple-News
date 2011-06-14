@@ -25,7 +25,7 @@ class spn_ical_item implements ArrayAccess
 		$this['created']		= $this->formatDateTime($aRow['firstdate']);
 		$this['last-modified']	= $this->formatDateTime($aRow['lastdate']);
 		$this['dtstart;value=date']	= $this->formatDateTime($aRow['archivedate'].$aRow['eventtime']);
-		$this['dtend;value=date']	= $this->formatDateTime($aRow['todate']);
+		$this['dtend;value=date']	= $this->formatDateTime($aRow['todate'].$aRow['eventtotime']);
 		$this['uid']				= 'sn_'.$aRow['id'].'@logic-works.net';
 	}
 
@@ -34,7 +34,7 @@ class spn_ical_item implements ArrayAccess
 		$tmp = strtr($aString, array(':' => '', ' ' => ''));
 		$ret = substr($tmp, 0, 8);
 		if (strlen($tmp) > 8) {
-			$ret.= 'T'.substr($tmp, -4).'00Z';
+			$ret.= 'T'.substr($tmp, -4).'00 +0100';
 		}
 		return $ret;
 	}
