@@ -228,6 +228,7 @@
 		<!-- lw:if editor -->
 		<div class="spn_edit spn_red">
 			<br /> <a class="spn_red" href="<!-- lw:var editurl -->">bearbeiten</a>
+			|&nbsp;<a class="spn_red" href="<!-- lw:var icalurl -->">iCal herunterladen</a>
 			<!-- lw:if admindelete -->
 			<span class="delete"> |&nbsp;<a class="spn_red"
 				href="javascript:if(confirm('Soll diese Mitteilung wirklich gel&ouml;scht werden?')){ document.location.href='<!-- lw:var deleteurl -->';}"
@@ -284,6 +285,13 @@
 	</div>
 	<!-- lw:endifnot is_event -->
 	<!-- lw:blockend listitem -->
+
+	<!-- lw:if hasevents -->
+	<div class="spn_archive">
+		<br /> <a href="<!-- lw:var icalallurl -->">&gt; alle Termine herunterladen</a>
+	</div>
+	<!-- lw:endif hasevents -->
+	
 	<!-- lw:if current -->
 	<div class="spn_archive">
 		<br /> <a href="<!-- lw:var archiveurl -->">&gt; zum Archiv</a>

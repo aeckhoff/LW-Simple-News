@@ -1,4 +1,4 @@
-# lw_simple_news
+# LW Simple News
 
 ## Introduction
 
