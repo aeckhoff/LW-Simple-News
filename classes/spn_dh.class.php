@@ -51,8 +51,8 @@ class spn_dh extends lw_object
 		$this->instance = $sn_instance;
 		$this->itemtype = $itemtype;
 
-		//$this->table 			= $this->conf['dbt']['simplenews'];
-		$this->table 			= $this->conf['dbt']['simplenews']."_dev";
+		$this->table 			= $this->conf['dbt']['simplenews'];
+		//$this->table 			= $this->conf['dbt']['simplenews']."_dev";
 
 		require_once(dirname(__FILE__).'/spn_logger.class.php');
 		$this->logger = new spn_logger($this->instance);
@@ -191,7 +191,7 @@ class spn_dh extends lw_object
 	protected function getFieldKeys() {
 		$keys =  explode(',', 'newstext,newslink,newslinkint,archivedate,intern,'
 		.'openpopup,lastdate,firstdate,published,sn_instance,dirty,title,'
-		.'location,todate,eventtime,itemtype,showinnews,contact');
+		.'location,todate,eventtime,eventtotime,itemtype,showinnews,contact');
 		return $keys;
 	}
 

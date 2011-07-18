@@ -188,8 +188,8 @@
 	<div class="spn_newsitem">
 		<div class="spe_newsentry">
 			<div class="spe_date">
-				<!-- lw:var archivedate --><!-- lw:if has_todate --> - <!-- lw:var todate --><!-- lw:endif has_todate -->, <!-- lw:var eventtime -->
-			</div>
+                <!-- lw:var archivedate --> <!-- lw:var eventtime --> Uhr<!-- lw:if has_todate --> - <!-- lw:var todate --><!-- lw:if has_eventtotime --> <!-- lw:var eventtotime --> Uhr<!-- lw:endif has_eventtotime --><!-- lw:endif has_todate -->
+            </div> 
 			<div class="spe_title">
 				<b> <!-- lw:var title --> </b>
 			</div>
@@ -224,11 +224,11 @@
 			<!-- lw:if haslinkint -->
 			<span class="spn_newslinkint"><a href="<!-- lw:var newslinkint -->">[mehr]</a></span>
 			<!-- lw:endif haslinkint -->
+			<br /><span class="spn_event_ical"><a href="<!-- lw:var icalurl -->">iCal herunterladen</a></span><br /><br />
 		</div>
 		<!-- lw:if editor -->
 		<div class="spn_edit spn_red">
 			<br /> <a class="spn_red" href="<!-- lw:var editurl -->">bearbeiten</a>
-			|&nbsp;<a class="spn_red" href="<!-- lw:var icalurl -->">iCal herunterladen</a>
 			<!-- lw:if admindelete -->
 			<span class="delete"> |&nbsp;<a class="spn_red"
 				href="javascript:if(confirm('Soll diese Mitteilung wirklich gel&ouml;scht werden?')){ document.location.href='<!-- lw:var deleteurl -->';}"

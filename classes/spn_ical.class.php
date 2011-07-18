@@ -31,6 +31,7 @@ class spn_ical
 
 	public function sendAsFile($aFilename = 'calendar.ics')
 	{
+        header('Pragma: public');
 		header('Content-Type: text/calendar');
 		header('Content-Disposition: inline; filename="'.$aFilename.'"');
 		echo $this->getAsString();
