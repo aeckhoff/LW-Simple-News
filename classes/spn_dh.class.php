@@ -75,9 +75,25 @@ class spn_dh extends lw_object
 		}
 		return $sn;
 	}
+	
+	private function getOrderClause()
+	{
+		if ($this->itemtype == 'event') {
+			return 'ORDER BY archivedate ASC, firstdate ASC';
+		}
+		return 'ORDER BY archivedate DESC, firstdate DESC';
+	}	
+
+	private function getArchiveOrderClause()
+	{
+		return 'ORDER BY archivedate DESC';
+	}	
 
 	public function getList($currentdate = false, $month = '')
 	{
+		
+		$isEditor = lw_registry::getInstance()->getEntry('auth')->isAllowed('news_edit');
+		
 		if (!empty($month)) {
 			$start = $month.'01';
 			$end = $month.'31';
@@ -92,10 +108,17 @@ class spn_dh extends lw_object
 		if ($currentdate !== false) {
 			$sql = 'SELECT * FROM '.$this->table.' WHERE '
 			.'(archivedate > '.$nowminus14.') '
-			.'AND '.$sn.' '
-			.'ORDER BY archivedate DESC, firstdate DESC';
+			.'AND '.$sn.' ';
+			if ($this->itemtype != 'event' && !$isEditor) {
+				$sql.= 'AND archivedate<='.date('Ymd').' ';
+			}
+			$sql.= $this->getOrderClause();
 		} else {
-			$sql = 'SELECT * FROM '.$this->table.' WHERE '.$sn;
+			$sql = 'SELECT * FROM '.$this->table.' WHERE '.$sn.' ';
+			if ($this->itemtype != 'event' && !$isEditor) {
+				$sql.= 'AND archivedate<='.date('Ymd').' ';
+			}
+			$sql.= $this->getOrderClause();
 		}
 		$results = $this->db->select($sql);
 		return $results;
@@ -103,12 +126,16 @@ class spn_dh extends lw_object
 
 	public function getListForArchive($start, $end)
 	{
+		//if ($end > date("Ymd") && $this->itemtype != 'event') {
+		if ($end > date("Ymd")) {
+		    $end = date("Ymd");
+		}
 		$sn = $this->getFilterClause();
 		$sql = 'SELECT * FROM '.$this->table.' WHERE '
 		.'archivedate >= '.$start.' '
 		.'AND archivedate <= '.$end.' '
 		.'AND '.$sn.' '
-		.'ORDER BY archivedate DESC';
+		.$this->getArchiveOrderClause();
 		$results = $this->db->select($sql);
 		return $results;
 	}
@@ -156,18 +183,15 @@ class spn_dh extends lw_object
 		return $results;
 	}
 
-	public function getDates()
+	public function getDates($editor=false)
 	{
 		$sn = $this->getFilterClause();
 		$now = date('Ymd');
 		$sql = 'SELECT * FROM '.$this->table.' WHERE '.$sn.' '
-		.'AND (archivedate < '.$now.') '
-		.'AND (published > 0 AND published IS NOT NULL) '
-		.'ORDER BY archivedate DESC';
-
-		$results = $this->db->select($sql);
-
-		return $results;
+		.'AND (archivedate < '.$now.') ';
+		if (!$editor) $sql .='AND (published > 0 AND published IS NOT NULL) ';
+		$sql .= $this->getArchiveOrderClause();
+		return $this->db->select($sql);
 	}
 
 	public function setPublished($flag)
