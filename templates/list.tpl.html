@@ -180,7 +180,7 @@
 	<!-- lw:if current -->
 	<div class="spn_add spn_red">
 		<a class="spn_red" href="<!-- lw:var addurl -->">hinzuf&uuml;gen</a>
-	</div>
+	</div><br/>
 	<!-- lw:endif current -->
 	<!-- lw:endif editor -->
 	<!-- lw:blockstart listitem -->
@@ -188,7 +188,7 @@
 	<div class="spn_newsitem">
 		<div class="spe_newsentry">
 			<div class="spe_date">
-                <!-- lw:var archivedate --> <!-- lw:var eventtime --> Uhr<!-- lw:if has_todate --> - <!-- lw:var todate --><!-- lw:if has_eventtotime --> <!-- lw:var eventtotime --> Uhr<!-- lw:endif has_eventtotime --><!-- lw:endif has_todate -->
+			<!-- lw:var fmt_date -->
             </div> 
 			<div class="spe_title">
 				<b> <!-- lw:var title --> </b>
@@ -196,7 +196,7 @@
 			<!-- lw:if has_contact -->
 			<!-- lw:if has_location -->
 			<div class="spe_addinfo">
-				<!-- lw:var contact -->, <!-- lw:var location -->
+				<!-- lw:var contact --><br/><!-- lw:var location -->
 			</div>
 			<!-- lw:endif has_location -->
 			<!-- lw:ifnot has_location -->
@@ -224,16 +224,18 @@
 			<!-- lw:if haslinkint -->
 			<span class="spn_newslinkint"><a href="<!-- lw:var newslinkint -->">[mehr]</a></span>
 			<!-- lw:endif haslinkint -->
-			<br /><span class="spn_event_ical"><a href="<!-- lw:var icalurl -->">iCal herunterladen</a></span><br /><br />
+			<div class="spn_event_ical"><a href="<!-- lw:var icalurl -->">iCal herunterladen</a></div>
 		</div>
 		<!-- lw:if editor -->
 		<div class="spn_edit spn_red">
-			<br /> <a class="spn_red" href="<!-- lw:var editurl -->">bearbeiten</a>
-			<!-- lw:if admindelete -->
-			<span class="delete"> |&nbsp;<a class="spn_red"
+			<div>
+			    <a class="spn_red" href="<!-- lw:var editurl -->">bearbeiten</a>
+			    <!-- lw:if admindelete -->
+			    <span class="delete"> |&nbsp;<a class="spn_red"
 				href="javascript:if(confirm('Soll diese Mitteilung wirklich gel&ouml;scht werden?')){ document.location.href='<!-- lw:var deleteurl -->';}"
-			>l&ouml;schen</a> </span>
-			<!-- lw:endif admindelete -->
+     			>l&ouml;schen</a> </span>
+	    		<!-- lw:endif admindelete -->
+			</div>
 			<!-- lw:if notpublished -->
 			&nbsp;Dieser Eintrag wurde noch nicht ver&ouml;ffentlicht.<br />
 			<!-- lw:endif notpublished -->
@@ -267,19 +269,21 @@
 		</div>
 		<!-- lw:if editor -->
 		<div class="spn_edit spn_red">
-			<br /> <a class="spn_red" href="<!-- lw:var editurl -->">bearbeiten</a>
-			<!-- lw:if admindelete -->
-			<span class="delete"> |&nbsp;<a class="spn_red"
-				href="javascript:if(confirm('Soll diese Mitteilung wirklich gel&ouml;scht werden?')){ document.location.href='<!-- lw:var deleteurl -->';}"
-			>l&ouml;schen</a> </span>
-			<!-- lw:endif admindelete -->
-			<!-- lw:if notpublished -->
-			&nbsp;Dieser Eintrag wurde noch nicht ver&ouml;ffentlicht.<br />
-			<!-- lw:endif notpublished -->
-			<!-- lw:if notyetpublished -->
-			&nbsp;Diese News ist ver&ouml;ffentlicht, aber das Datum liegt noch
-			in der Zukunft.<br />
-			<!-- lw:endif notyetpublished -->
+			<div>
+			    <a class="spn_red" href="<!-- lw:var editurl -->">bearbeiten</a>
+    			<!-- lw:if admindelete -->
+	    		<span class="delete"> |&nbsp;<a class="spn_red"
+	    			href="javascript:if(confirm('Soll diese Mitteilung wirklich gel&ouml;scht werden?')){ document.location.href='<!-- lw:var deleteurl -->';}"
+	    		>l&ouml;schen</a> </span>
+	    		<!-- lw:endif admindelete -->
+			    <!-- lw:if notpublished -->
+			    &nbsp;Dieser Eintrag wurde noch nicht ver&ouml;ffentlicht.<br />
+			    <!-- lw:endif notpublished -->
+			    <!-- lw:if notyetpublished -->
+			    &nbsp;Diese News ist ver&ouml;ffentlicht, aber das Datum liegt noch
+			    in der Zukunft.<br />
+			    <!-- lw:endif notyetpublished -->
+	        </div>
 		</div>
 		<!-- lw:endif editor -->
 	</div>
