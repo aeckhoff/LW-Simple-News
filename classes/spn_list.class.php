@@ -11,7 +11,7 @@ class spn_list extends spn_object
 	public function ac_archive()
 	{
 		$tpl = new lw_te($this->loadFile($this->templatePath.'archive.tpl.html'));
-		$dates = $this->dh->getDates();
+		$dates = $this->dh->getDates($this->isEditor);
 		$dates_array = array();
 
 		foreach($dates as $date) {
@@ -51,7 +51,16 @@ class spn_list extends spn_object
 	public function ac_list()
 	{
 		$spn_month = $this->fGet->getAlNum('spn_month');
-		if(!is_numeric($spn_month)) $spn_month = '';
+		if(!is_numeric($spn_month)) {
+		    $spn_month = '';
+		}
+        //check if Archive View
+        if ($spn_month>0) {
+            $archiveView = true;
+        }
+        else {
+   		    $archiveView = false;
+        }
 
 		$items = $this->dh->getList(date(Ymd), $spn_month);
 
@@ -95,9 +104,12 @@ class spn_list extends spn_object
 			} else {
 				$showInList = ($this->itemtype == 'news');
 			}
-			$isArchived  = ($pdate < $today);
+			if ($isEvent) {
+			    $isArchived  = ($pdate < $today);
+			    //echo "<!-- ".$isArchived." = ".$pdate." < ".$today." -->\n";
+			}
 
-			if ($this->isEditor || ($isPublished && !$isArchived  && $showInList)) {
+			if ($this->isEditor || ($isPublished && (!$isArchived || $archiveView)  && $showInList)) {
 				$btpl = new lw_te($block);
 				foreach($item as $curKey => $curVal) {
 					if (!empty($curVal)) $btpl->setIfVar('has_'.$curKey);
@@ -108,6 +120,30 @@ class spn_list extends spn_object
 					$btpl->setIfVar('is_event');
 					$btpl->reg('icalurl', $this->buildURL(array('spn_module'=>'edit','spn_command'=>'download', 'spn_id'=>$item['id'])));
 					$eventIds[] = $item['id'];
+
+					$fmt = $this->numberToDateTimeWithoutTime($item['archivedate']);
+					if (empty($item['todate'])) {
+						if (empty($item['eventtime'])) {
+							if (!empty($item['eventtotime'])) {
+								$fmt.= ' - '.$item['eventtotime'].' Uhr';
+							}
+						} else {
+							$fmt.= ', '.$item['eventtime'];
+							if (!empty($item['eventtotime'])) {
+								$fmt.= ' - '.$item['eventtotime'];
+							}
+							$fmt.= ' Uhr';
+						}
+					} else {
+						if (!empty($item['eventtime'])) {
+							$fmt.= ', '.$item['eventtime'].' Uhr ';
+						}
+						$fmt.= ' - '.$this->numberToDateTimeWithoutTime($item['todate']);
+						if (!empty($item['eventtotime'])) {
+							$fmt.= ', '.$item['eventtotime'].' Uhr ';
+						}
+					}
+					$btpl->reg('fmt_date', $fmt);
 				}
 
 				$btpl->reg('archivedate', $this->numberToDateTimeWithoutTime($item['archivedate']));
@@ -132,9 +168,6 @@ class spn_list extends spn_object
 					}
 					$btpl->reg('newslinkint',   $link);
 				}
-                if (!empty($item['eventtotime'])) {
-                    $btpl->setIfVar('has_eventtotime');
-                }
 				if ($this->isEditor) {
 					$btpl->setIfVar('editor');
 					$btpl->reg('editurl', $this->buildURL(array('spn_module'=>'edit','spn_command'=>'edit', 'spn_id'=>$item['id'])));
