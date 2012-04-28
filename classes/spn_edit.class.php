@@ -175,7 +175,9 @@ class spn_edit extends spn_object
 		if ($datatype == 'event') {
 			$data['itemtype']		= 'event';
 			$data['location']		= $this->lwStringClean($this->fPost->getRaw('location'));
-			$data['todate']			= $this->dateToNumber($this->lwStringClean($this->fPost->getRaw('todate')));
+			if ($this->fPost->getRaw('todate') != $this->fPost->getRaw('archivedate')) {
+			    $data['todate']			= $this->dateToNumber($this->lwStringClean($this->fPost->getRaw('todate')));
+			}
 			$data['showinnews']		= $this->lwStringClean($this->fPost->getRaw('showinnews'));
 			$data['eventtime']		= $this->lwStringClean($this->fPost->getRaw('eventtime'));
 			$data['eventtotime']    = $this->lwStringClean($this->fPost->getRaw('eventtotime'));
