@@ -24,8 +24,18 @@ class spn_ical_item implements ArrayAccess
 		$this['contact']		= $aRow['contact'];
 		$this['created']		= $this->formatDateTime($aRow['firstdate']);
 		$this['last-modified']	= $this->formatDateTime($aRow['lastdate']);
+
 		$this['dtstart;value=date']	= $this->formatDateTime($aRow['archivedate'].$aRow['eventtime']);
-		$this['dtend;value=date']  = $this->formatDateTime($aRow['todate'].$aRow['eventtotime']);
+		$endDate = $aRow['todate'];
+		if (empty($endDate)) {
+			$endDate = $aRow['archivedate'];
+		}
+		if (!$aRow['eventtotime'] && $aRow['eventtime']>0) {
+		    $aRow['eventtotime'] = $aRow['eventtime'];
+		}
+		
+		$this['dtend;value=date']  = $this->formatDateTime($endDate.$aRow['eventtotime']);
+
 		$this['uid']				= 'sn_'.$aRow['id'].'@logic-works.net';
 	}
 
@@ -46,7 +56,13 @@ class spn_ical_item implements ArrayAccess
 
 	protected function escapeValue($aValue)
 	{
-		$ret = trim($aValue);
+		$ret = utf8_encode($aValue);
+		//$ret = $aValue;
+		//$ret = html_entity_decode($ret, ENT_QUOTES, 'UTF-8');
+		if (function_exists('mb_convert_encoding')) {
+			//$ret = mb_convert_encoding($ret, 'ISO-8859-15');
+		}
+		$ret = trim($ret);
 		$ret = addcslashes($ret, "\;,\r\n");
 		$ret = chunk_split($ret, 74, "\r\n ");
 		return trim($ret);
@@ -85,6 +101,9 @@ class spn_ical_item implements ArrayAccess
 			$ret.= $lKey.':'.$this->escapeValue($lVal).self::EOL;
 		}
 		$ret.= 'END:VEVENT'.self::EOL;
+		
+		$ret = str_replace("&#45\;", "-", $ret);
+		
 		return $ret;
 	}
 
